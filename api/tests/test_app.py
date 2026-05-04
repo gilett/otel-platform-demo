@@ -39,5 +39,5 @@ def test_post_messages_publish_payload_to_kafka_topic(
     payload = json.loads(value.decode("utf-8"))
     assert payload == {"id": message_id, "body": "hello world"}
 
-    # Ensure flush is called so the demo isn't stuck in internal buffer (Kafka handling of small payloads - batching)
+    # Ensure flush is called so the test isn't stuck in internal buffer (Kafka handling of small payloads - batching)
     fake_producer.flush.assert_called_once()
