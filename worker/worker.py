@@ -8,6 +8,9 @@ from typing import Iterator
 
 from kafka import KafkaConsumer
 
+from opentelemetry.instrumentation.kafka import KafkaInstrumentor
+KafkaInstrumentor().instrument()
+
 KAFKA_BOOTSTRAP_SERVERS = os.environ.get(
     "KAFKA_BOOTSTRAP_SERVERS", "localhost:9092"
 )
@@ -26,7 +29,7 @@ def consume_one(messages_iter: Iterator, work_seconds: float = 0.5) -> str | Non
     #Pop the next messages from an iterator and process it.
     # Returns the processed message id or None when the iterator is exhausted.
     # Designed to take the live KafkaConsumer iterator in production and a list iterator in tests
-    # The Otel kafka-python instrumentation wraps the consumer's __next__,
+    # The Otel kafka-python-ng instrumentation wraps the consumer's __next__,
     # so context extraction happens at iteration time.
     try:
         message = next(messages_iter)
@@ -40,7 +43,7 @@ def main() -> None:
         TOPIC,
         bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS,
         group_id=GROUP_ID,
-        auto_offset_rest="earliest",
+        auto_offset_reset="earliest",
     )
     print(
         f"worker connect to {KAFKA_BOOTSTRAP_SERVERS}, "
@@ -50,7 +53,7 @@ def main() -> None:
     for message in consumer:
         payload = json.loads(message.value.decode("utf-8"))
         message_id = process_message(payload)
-        print(f"Processed {message_id}", flush=TRUE)
+        print(f"Processed {message_id}", flush=True)
 
 if __name__ == "__main__":
     main()

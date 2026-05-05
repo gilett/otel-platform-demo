@@ -9,6 +9,9 @@ from fastapi import FastAPI, Depends
 from kafka import KafkaProducer
 from pydantic import BaseModel
 
+from opentelemetry.instrumentation.kafka import KafkaInstrumentor
+KafkaInstrumentor().instrument()
+
 KAFKA_BOOTSTRAP_SERVERS = os.environ.get(
     "KAFKA_BOOTSTRAP_SERVERS", "localhost:9092"
 )

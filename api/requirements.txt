@@ -1,5 +1,6 @@
 fastapi==0.115.4
 uvicorn[standard]==0.32.0
-kafka-python==2.0.2
+kafka-python-ng==2.2.3
 opentelemetry-distro==0.49b2
 opentelemetry-exporter-otlp==1.28.2
+opentelemetry-instrumentation-kafka-python==0.49b2
