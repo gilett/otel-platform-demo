@@ -56,7 +56,7 @@ The tests mock Kafka (no infra required).  API overrides kafka with `MagicMock` 
 
 ## Roadmap
 
-- [] Auto-intrumentation: Custom metrics and structured logs via OTel
-- [] Manual instrumentation: explicit span creation and context propagation across Kafka
-- [] Manual instrumentation: custom metrics and structured logs
-- [] Browser instrumentation: JS frontend with traces going: browser -> API -> Kafka -> worker
+- Auto-intrumentation: Custom metrics and structured logs via OTel
+- Manual instrumentation: explicit span creation and context propagation across Kafka
+- Manual instrumentation: custom metrics and structured logs
+- Browser instrumentation: JS frontend with traces going: browser -> API -> Kafka -> worker
